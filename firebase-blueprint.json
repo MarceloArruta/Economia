@@ -1,0 +1,68 @@
+{
+  "entities": {
+    "Room": {
+      "title": "Room",
+      "description": "A financial room with its own budget settings",
+      "type": "object",
+      "properties": {
+        "income": { "type": "number" },
+        "dailyLimit": { "type": "number" }
+      },
+      "required": ["income"]
+    },
+    "Income": {
+      "title": "Income",
+      "description": "A source of income for the room",
+      "type": "object",
+      "properties": {
+        "description": { "type": "string" },
+        "amount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["description", "amount", "createdAt"]
+    },
+    "Expense": {
+      "title": "Expense",
+      "description": "A daily expense for the room",
+      "type": "object",
+      "properties": {
+        "description": { "type": "string" },
+        "amount": { "type": "number" },
+        "date": { "type": "string", "format": "date" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["description", "amount", "date", "createdAt"]
+    },
+    "History": {
+      "title": "History",
+      "description": "A closed month summary",
+      "type": "object",
+      "properties": {
+        "label": { "type": "string" },
+        "totalIncome": { "type": "number" },
+        "totalExpenses": { "type": "number" },
+        "balance": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["label", "totalIncome", "totalExpenses", "balance", "createdAt"]
+    }
+  },
+  "firestore": {
+    "rooms/{roomId}": {
+      "schema": "Room",
+      "description": "The main settings for a specific room"
+    },
+    "rooms/{roomId}/incomes": {
+      "schema": "Income",
+      "description": "List of incomes for a specific room"
+    },
+    "rooms/{roomId}/expenses": {
+      "schema": "Expense",
+      "description": "List of expenses for a specific room"
+    },
+    "rooms/{roomId}/history": {
+      "schema": "History",
+      "description": "List of closed months for a specific room"
+    }
+  }
+}

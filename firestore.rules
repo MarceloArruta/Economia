@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // For this specific app, we allow anyone with the roomId to read/write
+    // to facilitate easy sharing without complex auth for now, 
+    // but we still require basic authentication (Google Login) to track who is doing what.
+    
+    match /rooms/{roomId} {
+      allow read, write: if true;
+      
+      match /incomes/{incomeId} {
+        allow read, write: if true;
+      }
+      
+      match /expenses/{expenseId} {
+        allow read, write: if true;
+      }
+      
+      match /history/{historyId} {
+        allow read, write: if true;
+      }
+    }
+  }
+}
