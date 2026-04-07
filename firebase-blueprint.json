@@ -6,7 +6,12 @@
       "type": "object",
       "properties": {
         "income": { "type": "number" },
-        "dailyLimit": { "type": "number" }
+        "dailyLimit": { "type": "number" },
+        "foodLimit": { "type": "number" },
+        "cleaningLimit": { "type": "number" },
+        "hygieneLimit": { "type": "number" },
+        "electricityBill": { "type": "number" },
+        "condoFee": { "type": "number" }
       },
       "required": ["income"]
     },
@@ -29,9 +34,21 @@
         "description": { "type": "string" },
         "amount": { "type": "number" },
         "date": { "type": "string", "format": "date" },
+        "category": { "type": "string", "enum": ["Comida", "Limpeza", "Higiene", "Outros"] },
         "createdAt": { "type": "string", "format": "date-time" }
       },
-      "required": ["description", "amount", "date", "createdAt"]
+      "required": ["amount", "date", "category", "createdAt"]
+    },
+    "FixedExpense": {
+      "title": "FixedExpense",
+      "description": "A recurring monthly expense",
+      "type": "object",
+      "properties": {
+        "description": { "type": "string" },
+        "amount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["description", "amount", "createdAt"]
     },
     "History": {
       "title": "History",
@@ -59,6 +76,10 @@
     "rooms/{roomId}/expenses": {
       "schema": "Expense",
       "description": "List of expenses for a specific room"
+    },
+    "rooms/{roomId}/fixedExpenses": {
+      "schema": "FixedExpense",
+      "description": "List of recurring expenses for a specific room"
     },
     "rooms/{roomId}/history": {
       "schema": "History",

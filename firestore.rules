@@ -21,6 +21,10 @@ service cloud.firestore {
         allow read, write: if true;
       }
       
+      match /fixedExpenses/{fixedId} {
+        allow read, write: if true;
+      }
+      
       match /history/{historyId} {
         allow read, write: if true;
       }
